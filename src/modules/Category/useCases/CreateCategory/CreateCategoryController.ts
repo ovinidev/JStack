@@ -5,9 +5,13 @@ export class CreateCategoryController {
   constructor(private createCategoryUseCase: CreateCategoryUseCase) {}
 
   async handle(req: Request, res: Response): Promise<Response> {
-    const { name, icon } = req.body;
-
     try {
+      const { name, icon } = req.body;
+
+      if (!name || !icon) {
+        return res.status(400).json({ error: 'Missing parameters' });
+      }
+
       const category = await this.createCategoryUseCase.execute({ name, icon });
 
       return res.status(201).json(category);

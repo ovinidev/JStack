@@ -1,6 +1,7 @@
 import { Request, Response, Router } from 'express';
 import listCategoryController from '../modules/Category/useCases/ListCategory';
 import createCategoryController from '../modules/Category/useCases/CreateCategory';
+import listProductByCategoryController from '../modules/Product/useCases/ListProductByCategory';
 
 export const CategoryRouter = Router();
 
@@ -9,7 +10,7 @@ CategoryRouter.get('/', (req: Request, res: Response) => {
 });
 
 CategoryRouter.get('/:categoryId/products', (req: Request, res: Response) => {
-  return res.status(200).json({ message: 'Hello World' });
+  return listProductByCategoryController().handle(req, res);
 });
 
 CategoryRouter.post('/', (req: Request, res: Response) => {
